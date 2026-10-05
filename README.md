@@ -1,0 +1,2 @@
+# League Of Legends Blocker
+A simple tool to help people quit League of Legends.  - block.bat / block.ps1: blocks Riot domains via the hosts file and   installs a background watchdog that kills League/Riot processes - unblock.bat / unblock.ps1: removes the block after a 10-minute wait   and a typed confirmation sentence - README with setup steps, honest limitations and support resources - docs/how-it-works.svg: diagram explaining how the block works
