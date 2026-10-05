@@ -36,6 +36,18 @@ Double-click `unblock.bat` to fully remove the block. It's annoying on purpose:
 
 **Tip:** After installing, delete `unblock.bat` and `unblock.ps1`, or give them to someone you trust.
 
+## Is this safe?
+
+- **Fully open source.** Everything is plain text. Open `block.ps1` and read every line before running it.
+- **Sends nothing anywhere and deletes no files.**
+- **Here's everything it changes on your computer:**
+  - Adds a few lines to `C:\Windows\System32\drivers\etc\hosts`, each marked with `# LOLBLOCK`
+  - Creates the `C:\ProgramData\LolBlock` folder with the watchdog script
+  - Creates a scheduled task named `LolBlock`
+- **`unblock.bat` undoes all of it.**
+
+Some antivirus programs might flag it. That's because editing the hosts file, running a hidden background task and force-closing programs look suspicious to them. It's a false alarm, and the code is right there for you to check.
+
 ## Let's be honest: limitations
 
 - Someone who knows computers well can get around this. The goal isn't an unbreakable wall. It's to put **enough friction** between the urge and the game.
