@@ -1,73 +1,45 @@
-# LoL Blocker
+# League of Legends Blocker
 
-A simple PowerShell script that stops League of Legends from being downloaded, installed or launched on Windows.
-
-I made this for myself while dealing with a gaming addiction. If you're in the same spot, I hope it helps you too.
-
-> Deciding to quit isn't weakness. It's usually the hardest step.
-
-## How it works
+I kept uninstalling League and reinstalling it a few days later, so I wrote this with help of claude code to make reinstalling harder. It's a couple of PowerShell scripts for Windows.
 
 ![How it works](docs/how-it-works.svg)
 
-The script sets up two shields:
+## What it does
 
-1. **hosts file:** Blocks Riot and League websites and the servers the game downloads from. The installer can't download and you can't log in.
-2. **Watchdog:** Starts silently in the background every time the computer boots. It kills any program with `League` or `Riot` in its name (installer, Riot Client, the game itself) within 3 seconds. It runs as the SYSTEM account, so it's not easy to kill from Task Manager.
+`block.bat` does two things:
 
-Nothing gets deleted. The script only blocks.
+- Adds Riot and League domains to the hosts file, so the installer can't download and the client can't log in.
+- Sets up a scheduled task that starts with Windows and closes any process with "League" or "Riot" in its name every 3 seconds.
 
-## Install
+The first time you run it, it also opens a YouTube video.
 
-1. Download this repo: **Code → Download ZIP**, then extract it to a folder.
-2. Double-click `block.bat`.
-3. Click **Yes** when it asks for admin permission.
+It doesn't uninstall the game or delete anything.
 
-If you see "Done. League of Legends is now blocked.", you're all set.
+## Usage
 
-If Windows shows a "Windows protected your PC" warning, click **More info → Run anyway**.
+Download the repo as a ZIP, extract it and double-click `block.bat`. It asks for admin rights because it edits the hosts file and creates a scheduled task.
 
-## Uninstall
+If SmartScreen shows up, click More info, then Run anyway. You can read the scripts first, they're in `scripts/`.
 
-Double-click `unblock.bat` to fully remove the block. It's annoying on purpose:
+## Removing it
 
-- It makes you wait **10 minutes** first. Cravings usually pass within that time.
-- Then it asks you to type a long sentence **exactly**.
+Run `unblock.bat`. It opens a different video, makes you wait 10 minutes, then asks you to type "I really want this and I accept the consequences". If you type it correctly it removes everything, otherwise nothing changes.
 
-**Tip:** After installing, delete `unblock.bat` and `scripts/unblock.ps1`, or give them to someone you trust.
+The wait is on purpose. If you don't trust yourself with it, delete `unblock.bat` and `scripts/unblock.ps1` after installing, or give them to a friend.
 
-## Is this safe?
+## What it changes
 
-- **Fully open source.** Everything is plain text. Open `scripts/block.ps1` and read every line before running it.
-- **Sends nothing anywhere and deletes no files.**
-- **Here's everything it changes on your computer:**
-  - Adds a few lines to `C:\Windows\System32\drivers\etc\hosts`, each marked with `# LOLBLOCK`
-  - Creates the `C:\ProgramData\LolBlock` folder with the watchdog script
-  - Creates a scheduled task named `LolBlock`
-- **`unblock.bat` undoes all of it.**
+- Lines ending in `# LOLBLOCK` in `C:\Windows\System32\drivers\etc\hosts`
+- The folder `C:\ProgramData\LolBlock`
+- A scheduled task called `LolBlock`
 
-Both scripts write what they did to `lolblock.log`, next to the `.bat` files. If something doesn't work, check that file first.
+Both scripts write to `lolblock.log` next to the .bat files. Nothing is sent anywhere.
 
-Some antivirus programs might flag it. That's because editing the hosts file, running a hidden background task and force-closing programs look suspicious to them. It's a false alarm, and the code is right there for you to check.
+Some antivirus programs may flag the scripts because they edit the hosts file and kill processes.
 
-## Let's be honest: limitations
+## Limitations
 
-- Someone who knows computers well can get around this. The goal isn't an unbreakable wall. It's to put **enough friction** between the urge and the game.
-- A VPN, a different DNS or another computer will get around it.
-- It only works on Windows. It doesn't block mobile games like *Wild Rift*.
-- The watchdog kills **every** program with "League" or "Riot" in its name. Other Riot games (Valorant, etc.) are affected too.
+- It's easy to get around if you know Windows: edit the hosts file, delete the task, use a VPN or another PC.
+- It also closes Valorant and anything else from Riot.
+- Windows only.
 
-For a stronger block, have someone you trust change your computer's admin password. Then removing the block gets really hard.
-
-## You're not alone
-
-A program alone might not be enough. These help too:
-
-- **Talk to a professional.** Many countries have free addiction helplines that also cover gaming. In Turkey, call **Yeşilay at 115** (free).
-- Tell a friend. Having someone who checks in on you makes a big difference.
-- Fill the gap the game leaves with something else: exercise, walks, people you can spend time with.
-- Notice your triggers. Do you want to play when you're bored, stressed or up late at night?
-
----
-
-Good luck. GG, but this time make sure you're the one who wins.
